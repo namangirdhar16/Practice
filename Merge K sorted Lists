@@ -1,0 +1,34 @@
+class Solution {
+public:
+    struct comp{
+        bool operator()(ListNode * a, ListNode * b) {
+            return a->val > b->val;
+        }
+    };
+    ListNode* mergeKLists(vector<ListNode*>& lists) {\
+        
+       priority_queue<ListNode *, vector<ListNode *>, comp> pq;  
+       for(auto it: lists) {
+           ListNode * currHead = it;
+           while(currHead) {
+               pq.push(currHead);
+               currHead = currHead->next;
+           }
+       }
+       if(pq.size() == 0) return NULL;
+       ListNode * head = NULL, * prev = NULL, * next = NULL;
+        while(pq.size() > 0) {
+            if(head == NULL) {
+                head = pq.top();
+                prev = head;
+            }
+            else {
+                prev->next = pq.top();
+                prev = prev->next;
+            }
+            pq.pop();
+        }
+        prev->next = NULL;
+        return head;
+    }
+};
