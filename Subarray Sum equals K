@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        
+        int ans = 0;
+        map<int, int> mapp;
+        int currSum = 0;
+        for(int i = 0; i < nums.size(); i++) {
+            currSum += nums[i];
+            if(currSum == k) ans++;
+            if(mapp.find(currSum - k) != mapp.end()) {
+                ans += mapp[currSum - k];
+            }
+            mapp[currSum]++;
+        }
+        return ans;
+    }
+};
