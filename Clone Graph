@@ -1,0 +1,29 @@
+class Solution {
+public:
+    void dfs(Node * copyNode, Node * node, vector<Node *> &visited)  {
+        visited[copyNode->val] = copyNode;
+        for(auto it: node->neighbors) {
+            if(!visited[it->val]) {
+                Node * newNode = new Node(it->val);
+                copyNode->neighbors.push_back(newNode);
+                dfs(newNode, it, visited);
+                
+            }
+            else {
+                copyNode->neighbors.push_back(visited[it->val]);
+            }
+        }
+    }
+    Node* cloneGraph(Node* node) {
+        
+        if(node == NULL)
+            return node;
+        
+        
+        vector<Node *> visited(1001, NULL);
+        
+        Node * first = new Node(node->val);
+        dfs(first, node, visited);
+        return first;
+    }
+};
