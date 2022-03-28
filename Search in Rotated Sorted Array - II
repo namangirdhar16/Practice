@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool search(vector<int>& nums, int target) {
+        
+        int pivot = -1;
+        int n = nums.size();
+        int i = 0;
+        int prev = nums[0];
+        while(i < n && nums[i] >= prev) {
+            prev = nums[i++];
+        }
+        pivot = i;
+        bool l = binary_search(nums.begin(), nums.begin() + pivot, target);
+        bool r = binary_search(nums.begin() + pivot, nums.end(), target);
+        return (l | r);
+         
+    }
+};
